@@ -4,7 +4,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         var dados = new FonteDeDados();
         var cm = new VisualizadorDeMedia(dados.getValores());
+        dados.registerObserver(cm);
         var cs = new VisualizadorDeSomatorio(dados.getValores());
+        dados.registerObserver(cs);
+        var mv = new VisualizadorDeMaior(dados.getValores());
+        dados.registerObserver(mv);
 
         Scanner s = new Scanner(System.in);
         int valor = 0;
@@ -14,11 +18,11 @@ public class App {
             if (valor == 0){
                 break;
             }
+            cm.toggle();
+            cs.toggle();
+            mv.toggle();
+            
             dados.add(valor);
-            cs.acrescentaValor(valor);
-            cm.acrescentaValor(valor);
-            cs.exibeSomatorio();
-            cm.exibeMedia();
         }
         System.out.println("Fim");
     }

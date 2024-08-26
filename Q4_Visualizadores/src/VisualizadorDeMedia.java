@@ -1,7 +1,8 @@
 import java.util.List;
 
-public class VisualizadorDeMedia {
+public class VisualizadorDeMedia implements Observer {
     private List<Integer> valores;
+    private boolean active = false;
 
     public VisualizadorDeMedia(List<Integer> valores){
         this.valores = valores;
@@ -21,5 +22,14 @@ public class VisualizadorDeMedia {
             .average()
             .orElse(0.0);
         System.out.println("Media: "+media+", quantidade de elementos analisados: "+valores.size());
+    }
+
+    public void notifica(List<Integer> valores){
+        this.valores = valores;
+        if (active) exibeMedia();
+    }
+
+    public void toggle() {
+        active = !active;
     }
 }
